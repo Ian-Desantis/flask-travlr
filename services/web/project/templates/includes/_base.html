@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+    <title>{% block title %}{{ title | safe }}{% endblock %}</title>
+    {% endblock %}
+</head>
+    <body>
+        <div id="background">
+            <div id="page">
+                {% include 'includes/_navbar.html' %}
+                {% block content %}{% endblock %}
+            </div>
+            {% include 'includes/_footer.html' %}
+        </div>
+   </body>
+</html>
