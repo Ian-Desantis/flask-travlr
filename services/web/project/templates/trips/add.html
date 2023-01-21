@@ -1,0 +1,25 @@
+{% extends 'includes/_trips_base.html' %}
+{% from 'includes/_render_field.html' import render_field %}
+{% block content %}
+<div class="container">
+    <div class="col-md-3">
+        <h2 class="text-center">Add Trip</h2>
+        <div class="container">
+            <div>
+                <form method="post" action="{{ url_for('admin.add_trip')}}">
+                    {{ render_field(form.name, class='form-control', type='text', placeholder='Name') }}
+                    {{ render_field(form.length, class='form-control', type='text', placeholder='Length') }}
+                    {{ render_field(form.start, class='form-control', type='text', placeholder='Start') }}
+                    {{ render_field(form.resort, class='form-control', type='text', placeholder='Resort') }}
+                    {{ render_field(form.perPerson, class='form-control', type='text', placeholder='Per Person') }}
+                    {{ render_field(form.image, class='form-control', type='text', placeholder='Image') }}
+                    {{ render_field(form.description, class='form-control', type='text', placeholder='Description') }}
+                    {{ form.submit(class='btn btn-info')}}
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+{% endblock %}
+

@@ -1,0 +1,17 @@
+{% extends 'includes/_trips_base.html' %}
+{% from 'includes/_render_field.html' import render_field %}
+
+{% block content %}
+<div class="col-md-3">
+    <h2 class="text-center">Delete Trip</h2>
+    <p>Are you sure you want to delete</p>
+    <p>Please Enter the trip name to delete exactly as it is.</p>
+    <b>TRIP NAME: {{ trip.name }} </b>
+    
+    <form class="needs-validation" method="post" action="{{ url_for('admin.delete_trip', id=trip.id)}}">
+        {{ render_field(form.name, class='form-control', type='text', placeholder='Trip Name') }}
+        {{ form.submit(class='btn btn-info')}}
+    </form>
+</div>
+{% endblock %}
+
