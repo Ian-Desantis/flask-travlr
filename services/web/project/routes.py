@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from .trip_routes import get_trips
 
 # routes for the website 
 web = Blueprint("web", __name__)
@@ -37,7 +38,8 @@ def rooms():
 
 @web.route("/travel") 
 def travel():
-    return render_template("travel.html")
+    trips = get_trips()
+    return render_template("travel.html", trips=trips)
 
 
 
