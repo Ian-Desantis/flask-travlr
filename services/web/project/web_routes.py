@@ -1,18 +1,14 @@
+# All Routes for the customers and Front end
+
 from flask import Blueprint, render_template
 
-# routes for the website 
-web = Blueprint("web", __name__)
+web = Blueprint("web", __name__) # used to register routes
 
+
+# Create routes or endpoints below, naming should be self explainitory 
+@web.route("/index") 
 @web.route("/") 
 def index():
-    return render_template("index.html")
-
-@web.route("/index",) 
-def index_literal():
-    return render_template("index.html")
-
-@web.route("/home") 
-def home():
     return render_template("index.html")
 
 @web.route("/about") 
@@ -38,6 +34,3 @@ def rooms():
 @web.route("/travel") 
 def travel():
     return render_template("travel.html")
-
-
-
