@@ -1,7 +1,10 @@
+# These are Forms from the front end
+# Add any new forms needed here and import them individually later
+
 from wtforms import StringField, validators, SubmitField
 from flask_wtf import FlaskForm
 
-
+# use obvious naming for each form
 class AddTripForm(FlaskForm):
     name = StringField('Trip Name', [validators.Length(min=3, max=25)])
     length = StringField('Length of Stay', [validators.Length(min=4, max=35)])

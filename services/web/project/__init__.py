@@ -1,12 +1,17 @@
+# Application factory for initializing app
+# Put only top level application configuation logic here
+# uses blueprints to bring in any other modules created
 from flask import Flask, render_template
 from .models import *
 
+# Application Factory
 def create_app():
 
+    # set up app configs
     app = Flask(__name__)
     app.config.from_object('project.config.Config')
         
-    # register Blueprints 
+    # register Blueprints of other modules
     from .routes import web
     app.register_blueprint(web)
     from .trip_routes import admin
@@ -21,7 +26,7 @@ def create_app():
     def internal_server_error(e):
         return render_template('500.html'), 500
 
-    db.init_app(app)
+    db.init_app(app) # as it says init DB
 
     with app.app_context():
         return app

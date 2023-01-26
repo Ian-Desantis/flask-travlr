@@ -1,19 +1,18 @@
+# This is where the "routes" or endpoints 
+# for the client side of the website are
+
 from flask import Blueprint, render_template
 from .trip_routes import get_trips
 
-# routes for the website 
+# web blueprint of routes 
+# to be registerd with the app in the factory 
 web = Blueprint("web", __name__)
 
-@web.route("/") 
+# Put routes here
+@web.route("/")
+@web.route("/home")
+@web.route("/index") 
 def index():
-    return render_template("index.html")
-
-@web.route("/index",) 
-def index_literal():
-    return render_template("index.html")
-
-@web.route("/home") 
-def home():
     return render_template("index.html")
 
 @web.route("/about") 
@@ -40,6 +39,3 @@ def rooms():
 def travel():
     trips = get_trips()
     return render_template("travel.html", trips=trips)
-
-
-
