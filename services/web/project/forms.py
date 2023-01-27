@@ -28,3 +28,7 @@ class EditTripForm(FlaskForm):
 class DeleteTripForm(FlaskForm):
     name = StringField('Trip Name', [validators.Length(min=3, max=25)])
     submit = SubmitField('Delete Trip')
+
+class SearchTripForm(FlaskForm):
+    search_input = StringField('Search Trip ID', [validators.Length(min=3, max=25)])
+    submit = SubmitField('Search Trip')

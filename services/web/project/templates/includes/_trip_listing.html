@@ -6,7 +6,6 @@
     {% if trips %}
         {% for trip in trips %}
             <div>
-                <!-- <app-trip-card [trip]="trip" class="card-deck mt-2"></app-trip-card> -->
                 <div class="card-deck mt-2">
                     {{ render_trip_card(trip) }}
                 </div>
@@ -14,13 +13,16 @@
         {% endfor %}
     {% elif trip %}
         <div>
-            <!-- <app-trip-card [trip]="trip" class="card-deck mt-2"></app-trip-card> -->
             <div class="card-deck mt-2">
                 {{ render_trip_card(trip) }}
             </div>
         </div>
     {% else %}
-        <h1>Sorry no trips yet, check back later</h1>
+        <div>
+            <div class="card-deck mt-2">
+                <h1>Sorry no trips yet, check back later</h1>
+            </div>
+        </div>
     {% endif %}
     
 </div>

@@ -1,7 +1,7 @@
 # endpoints for the backend "admin" side of the website
 from flask import Blueprint, render_template, request, redirect, url_for
 from .models import db, Trip
-from .forms import AddTripForm, EditTripForm, DeleteTripForm
+from .forms import AddTripForm, EditTripForm, DeleteTripForm, SearchTripForm
 
 
 # admin BP, Register with app in factory
@@ -12,6 +12,7 @@ def get_trips():
     try:
         # gets all trips
         return db.session.execute(db.select(Trip).order_by(Trip.name)).scalars()
+        
     except:
         # if problem
         return  None
@@ -20,6 +21,13 @@ def get_trips():
 def get_trip(id):
     try:
         return db.session.execute(db.select(Trip).filter_by(id=id)).scalar_one()
+    except:
+        return  None
+
+def search_trips_by_name(name):
+    try:
+        trips = db.session.execute(db.select(Trip).filter(Trip.name.ilike(f'%{name}%'))).scalars().fetchall()
+        return trips
     except:
         return  None
 
@@ -60,7 +68,7 @@ def add_trip():
 def edit_trip(id):
     trip = get_trip(id)
     form = EditTripForm(request.form)
-
+    # sets new values
     if request.method == 'POST':
         trip.name=request.form["name"],
         trip.length=request.form["length"],
@@ -94,3 +102,12 @@ def delete_trip(id):
 
 
     return render_template("trips/delete.html", form=form, trip=trip)
+
+# searches for trip by similar name
+@admin.route("/trips/search", methods=['POST'])
+def search_details():
+
+    input = request.form["search"]
+    trips = search_trips_by_name(input)
+    
+    return render_template("trips.html", trips=trips)
