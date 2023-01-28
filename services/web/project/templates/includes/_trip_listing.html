@@ -1,7 +1,6 @@
 {% from 'includes/_trip_card.html' import render_trip_card %}
-<div>
-    <a href="{{ url_for('admin.add_trip')}}" class="btn btn-info">Add Trip</a>
-</div>
+{% include 'includes/_search_bar.html' %}
+
 <div class="row">
     {% if trips %}
         {% for trip in trips %}

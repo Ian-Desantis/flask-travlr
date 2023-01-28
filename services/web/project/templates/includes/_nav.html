@@ -1,18 +1,3 @@
-<!-- <nav class="navbar navbar-expand navbar-light bg-light">
-    <a class="navbar-brand" href="{{ url_for('admin.trip_list')}}"><img src="{{ url_for('static', filename='/images/logo.png')}}"></a>
-    <button class="navbar-toggler" type="button" datatoggle="collapse" data-target="#navbarNavAltMarkup" ariacontrols="navbarNavAltMarkup" aria-expanded="false" arialabel="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-        <a class="nav-item nav-link active" href="{{ url_for('admin.trip_list')}}">Trips<span class=" sr-only ">(current)</span></a>
-        </div>
-    </div>
-    <div class="navbar-end">
-        <input type="text" placeholder="Search...">
-    </div>
- </nav> -->
-
  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="{{ url_for('admin.trip_list') }}"><img src="{{ url_for('static', filename='/images/logo.png') }}"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,26 +10,14 @@
           <a class="nav-link" href="{{ url_for('admin.trip_list') }}">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('admin.trip_list') }}">Link</a>
+          <a class="nav-link" href="{{ url_for('admin.add_trip') }}">Add Trip</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ url_for('admin.trip_list') }}">Action</a>
-            <a class="dropdown-item" href="{{ url_for('admin.trip_list') }}">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ url_for('admin.trip_list') }}">Something else here</a>
-          </div>
-        </li>
+        {# if logged in do this }
         <li class="nav-item">
           <a class="nav-link disabled" href="{{ url_for('admin.trip_list') }}">Disabled</a>
         </li>
+        { #}
       </ul>
-      <form class="form-inline my-2 my-lg-0" method="post" action="{{ url_for('admin.search_details') }}">
-        <input class="form-control mr-sm-2" name="search" id="search" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+
     </div>
   </nav>

@@ -1,0 +1,15 @@
+
+<nav class="navbar navbar-light bg-white justify-content-between">
+    <a class="navbar-brand">Search Results</a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('admin.trip_list') }}">Sort 1 <span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method="post" action="{{ url_for('admin.search_details') }}">
+        <input class="form-control mr-sm-2" name="search" id="search" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+
+
