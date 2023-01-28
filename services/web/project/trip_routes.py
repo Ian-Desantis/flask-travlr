@@ -8,10 +8,13 @@ from .forms import AddTripForm, EditTripForm, DeleteTripForm, SearchTripForm
 admin = Blueprint("admin", __name__)
 
 # Helper functions
-def get_trips():
+def get_trips(sort='name'):
     try:
         # gets all trips
-        return db.session.execute(db.select(Trip).order_by(Trip.name)).scalars()
+        return db.session.execute(
+            db.select(Trip)
+            .order_by(getattr(Trip,sort))
+            ).scalars()
         
     except:
         # if problem
@@ -20,16 +23,25 @@ def get_trips():
 # gets one trip, by id
 def get_trip(id):
     try:
-        return db.session.execute(db.select(Trip).filter_by(id=id)).scalar_one()
+        return db.session.execute(
+            db.select(Trip)
+            .filter_by(id=id)
+            ).scalar_one()
     except:
         return  None
 
-def search_trips_by_name(name):
+def search_trips_by_name(trip_name, sort="name"):
     try:
-        trips = db.session.execute(db.select(Trip).filter(Trip.name.ilike(f'%{name}%'))).scalars().fetchall()
+        trips = db.session.execute(
+            db.select(Trip)
+            .filter(
+                Trip.name.ilike(f'%{trip_name}%'))
+                .order_by(getattr(Trip,sort))
+                ).scalars().fetchall()
+
         return trips
-    except:
-        return  None
+    except Exception as e: 
+        print(e)
 
 # Put all routes here With obvious names
 
@@ -103,11 +115,27 @@ def delete_trip(id):
 
     return render_template("trips/delete.html", form=form, trip=trip)
 
-# searches for trip by similar name
+# search for trip with similar name
 @admin.route("/trips/search", methods=['POST'])
 def search_details():
+    
 
     input = request.form["search"]
     trips = search_trips_by_name(input)
     
-    return render_template("trips.html", trips=trips)
+    return render_template("trips.html", trips=trips, input=input)
+
+# sorted search for trip with similar name
+@admin.route("/trips/search/<string:terms>/<string:sort>", methods=['GET'])
+@admin.route("/trips/search/<string:sort>", methods=['GET'])
+def sorted_search(terms='', sort='name'):
+    print(terms)
+    print(len(terms))
+    if len(terms) == 0:
+        trips = get_trips(sort=sort)
+        return render_template('trips.html', trips=trips)
+
+    trips = search_trips_by_name(terms, sort=sort)
+    
+    return render_template("trips.html", trips=trips, input=terms)
+

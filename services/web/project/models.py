@@ -13,7 +13,7 @@ class Trip(db.Model):
     length = db.Column(db.String, nullable=False)
     start = db.Column(db.DateTime, nullable=False)
     resort = db.Column(db.String, nullable=False)
-    perPerson = db.Column(db.String, nullable=False)
+    perPerson = db.Column(db.Numeric, nullable=False)
     image = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     
