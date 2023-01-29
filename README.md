@@ -15,6 +15,11 @@ docker-compose up -d
 Then once the containers are up and running:
 docker-compose exec python manage.py create_db
 
+And to load some Test Data:
+
+docker-compose exec python manage.py load_db
+
+
 start website:
 localhost:5000
 

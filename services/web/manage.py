@@ -16,6 +16,15 @@ def create_db():
     db.create_all()
     db.session.commit()
 
+@cli.command("load_db")
+def load_db():
+    from project.models import Trip
+    from test_data import data
+    for row in data:
+        trip = Trip(**row)
+        db.session.add(trip)
+        db.session.commit()
+
 # fires up app
 if __name__ == "__main__":
     cli()
