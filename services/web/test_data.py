@@ -1,7 +1,7 @@
 data = [
     {
         "name": "Trip 1",
-        "length": "1 night",
+        "length": 1,
         "start": "2023-02-12T00:00:00",
         "resort": "Ian's Resort",
         "perPerson": 1599.99,
@@ -10,7 +10,7 @@ data = [
     },           
 {
         "name": "Trip 2",
-        "length": "2 nights",
+        "length": 2,
         "start": "2023-02-13T00:00:00",
         "resort": "The last Resort",
         "perPerson": 10599.99,
@@ -19,7 +19,7 @@ data = [
     }, 
 {
         "name": "Trip 4",
-        "length": "4 nights",
+        "length": 4,
         "start": "2023-02-14T00:00:00",
         "resort": "Ian's Resort",
         "perPerson": 9599.99,
@@ -28,7 +28,7 @@ data = [
     },              
 {
         "name": "Trip 3",
-        "length": "3 nights",
+        "length": 3,
         "start": "2023-02-15T00:00:00",
         "resort": "Ian's Resort",
         "perPerson": 599.99,
@@ -37,7 +37,7 @@ data = [
     },             
 {
         "name": "Trip 5",
-        "length": "5 days, 4 nights",
+        "length": 5,
         "start": "2020-12-12T00:00:00",
         "resort": "New Resort",
         "perPerson": 1000.00,
@@ -46,7 +46,7 @@ data = [
     },     
 {
         "name": "Cheap Trip",
-        "length": "0 nights",
+        "length": 6,
         "start": "2020-12-12T00:00:00",
         "resort": "The last Resort",
         "perPerson": 100.00,
@@ -55,7 +55,7 @@ data = [
     }, 
 {
         "name": "Wild Vacation",
-        "length": "10 night",
+        "length": 10,
         "start": "2023-02-13T00:00:00",
         "resort": "Newest Resort",
         "perPerson": 100,

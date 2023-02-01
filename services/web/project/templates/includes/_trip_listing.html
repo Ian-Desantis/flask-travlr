@@ -1,15 +1,26 @@
 {% from 'includes/_trip_card.html' import render_trip_card %}
 {% include 'includes/_search_bar.html' %}
 
+
 <div class="row">
     {% if trips %}
-        {% for trip in trips %}
+        {% if rev == True %}
+        {% for trip in trips | sort(attribute=sort_by) | reverse %}
             <div>
                 <div class="card-deck mt-2">
                     {{ render_trip_card(trip) }}
                 </div>
             </div>
         {% endfor %}
+        {% else %}
+        {% for trip in trips | sort(attribute=sort_by)  %}
+            <div>
+                <div class="card-deck mt-2">
+                    {{ render_trip_card(trip) }}
+                </div>
+            </div>
+        {% endfor %}
+        {% endif %}
     {% elif trip %}
         <div>
             <div class="card-deck mt-2">

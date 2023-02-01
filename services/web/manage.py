@@ -2,7 +2,6 @@
 # CLi is the flask CLI 
 from flask.cli import FlaskGroup
 from project import create_app
-from project.shared_db import db
 
 # create_app is added to the CLI
 cli = FlaskGroup(create_app=create_app)
@@ -18,6 +17,7 @@ def create_db():
 
 @cli.command("load_db")
 def load_db():
+    from project.shared_db import db
     from project.models import Trip
     from test_data import data
     for row in data:

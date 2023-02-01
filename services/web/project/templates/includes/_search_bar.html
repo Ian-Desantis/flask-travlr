@@ -1,29 +1,35 @@
-<nav class="navbar navbar-light bg-white">
-    <a class="navbar-brand">Search Results</a>
+<nav class="nav nav-pills">
+
+        <a class="navbar-brand">Search Results</a>
+
+        <li class="nav-item">
+            <a href="{{ url_for('admin.rev_search') }}" class="btn btn-outline-primary my-2 my-sm-0 active" role="button" aria-pressed="true">
+                <i class="bi bi-arrow-down-up"></i>
+            </a>          
+        </li>
         
-    <ul class="navbar-nav mr-auto">
         
-        <div class="input-group">
-            <div class="input-group-preprend">
-                <button class="btn btn-outline-secondary dropdown-toggle" method="post" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort</button>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url_for('admin.sorted_search', terms=input, sort='name') }}">Name</a>
-                    <a class="dropdown-item" href="{{ url_for('admin.sorted_search', terms=input, sort='perPerson') }}">Price</a>
-                    <a class="dropdown-item" href="{{ url_for('admin.sorted_search', terms=input, sort='id') }}">ID #</a>
-                </div>
+        <li class="nav-item dropdown">
+          <a class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+            Sort By
+          </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ url_for('admin.sort_search', sort_by='perPerson') }}">Price</a>
+                <a class="dropdown-item" href="{{ url_for('admin.sort_search', sort_by='length') }}">Length</a>
+                <a class="dropdown-item" href="{{ url_for('admin.sort_search', sort_by='name') }}">Trip Name</a>
+                <a class="dropdown-item" href="{{ url_for('admin.sort_search', sort_by='resort') }}">Resort</a>
+                <a class="dropdown-item" href="{{ url_for('admin.sort_search', sort_by='start') }}">Start Date</a>
+                <a class="dropdown-item" href="{{ url_for('admin.sort_search', sort_by='id') }}">ID #</a>
             </div>
-            <form class="form-inline my-2 my-lg-0" method="POST" action="{{ url_for('admin.search_details') }}">
+        </li>
+        
+    <form class="form-inline my-2 my-lg-0" method="POST" action="{{ url_for('admin.better_search') }}">
+    {% if input %}
+        <input class="form-control mr-sm-2" name="search" id="search" type="text"  value="{{ input }}" aria-label="Search">
+    {% else %}
+        <input class="form-control mr-sm-2" name="search" id="search" type="text"  placeholder="Search" aria-label="Search">
+    {% endif %}
+        <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
 
-            {% if input %}
-            <input class="form-control mr-sm-2" name="search" id="search" type="text"  value="{{ input }}" aria-label="Search">
-            {% else %}
-                <input class="form-control mr-sm-2" name="search" id="search" type="text"  placeholder="Search" aria-label="Search">
-            {% endif %}
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-         </div>
-    </ul>
-    
-</nav>
-
-
+  </nav>

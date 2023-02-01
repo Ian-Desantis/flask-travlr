@@ -1,55 +1,33 @@
 # endpoints for the backend "admin" side of the website
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
+import json
+
+from .db_helpers import get_trips, get_trip, search_trips
 from .models import db, Trip
 from .forms import AddTripForm, EditTripForm, DeleteTripForm, SearchTripForm
+
 
 
 # admin BP, Register with app in factory
 admin = Blueprint("admin", __name__)
 
-# Helper functions
-def get_trips(sort='name'):
-    try:
-        # gets all trips
-        return db.session.execute(
-            db.select(Trip)
-            .order_by(getattr(Trip,sort))
-            ).scalars()
-        
-    except:
-        # if problem
-        return  None
-
-# gets one trip, by id
-def get_trip(id):
-    try:
-        return db.session.execute(
-            db.select(Trip)
-            .filter_by(id=id)
-            ).scalar_one()
-    except:
-        return  None
-
-def search_trips_by_name(trip_name, sort="name"):
-    try:
-        trips = db.session.execute(
-            db.select(Trip)
-            .filter(
-                Trip.name.ilike(f'%{trip_name}%'))
-                .order_by(getattr(Trip,sort))
-                ).scalars().fetchall()
-
-        return trips
-    except Exception as e: 
-        print(e)
-
 # Put all routes here With obvious names
-
 # all trips, Home for admin
-@admin.route("/trips")
+@admin.route("/trips", methods=['GET', 'POST'])
 def trip_list():
-    trips = get_trips()
-    return render_template("trips.html", trips=trips)
+    if request.method == 'GET':
+
+        trips = get_trips()
+        sort_by = 'id'
+        rev = False
+        
+        session['search_results'] = trips
+        session['sort_by'] = sort_by
+        session['rev_order'] = rev
+        session['search_input'] = ''
+
+
+        return render_template("trips.html", trips=trips, sort_by=sort_by, rev=rev)
 
 # gets trip by ID
 @admin.route("/trips/<int:id>")
@@ -115,27 +93,36 @@ def delete_trip(id):
 
     return render_template("trips/delete.html", form=form, trip=trip)
 
+
 # search for trip with similar name
 @admin.route("/trips/search", methods=['POST'])
-def search_details():
-    
+def better_search():
 
     input = request.form["search"]
-    trips = search_trips_by_name(input)
-    
-    return render_template("trips.html", trips=trips, input=input)
+    trips = search_trips(input)
 
-# sorted search for trip with similar name
-@admin.route("/trips/search/<string:terms>/<string:sort>", methods=['GET'])
-@admin.route("/trips/search/<string:sort>", methods=['GET'])
-def sorted_search(terms='', sort='name'):
-    print(terms)
-    print(len(terms))
-    if len(terms) == 0:
-        trips = get_trips(sort=sort)
-        return render_template('trips.html', trips=trips)
+    session['rev_order'] = False
+    session['search_input'] = input
+    session['search_results'] = trips
 
-    trips = search_trips_by_name(terms, sort=sort)
-    
-    return render_template("trips.html", trips=trips, input=terms)
+    return render_template("trips.html", trips=trips, input=input, rev=session['rev_order'], sort_by=session['sort_by'])
+
+
+@admin.route("/trips/search/<string:sort_by>", methods=['GET'])
+def sort_search(sort_by):
+    session['rev_order'] = False
+
+    session['sort_by'] = sort_by
+
+
+    return render_template('trips.html', trips=session['search_results'], sort_by=sort_by, input=session['search_input'], rev=session['rev_order'])
+
+
+@admin.route("/trips/rev", methods=['GET'])
+def rev_search():
+
+    rev = False if session['rev_order'] == True else True
+    session['rev_order'] = rev
+
+    return render_template('trips.html', trips=session['search_results'], sort_by=session['sort_by'], rev=rev, input=session['search_input'] )
 

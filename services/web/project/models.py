@@ -10,10 +10,10 @@ class Trip(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    length = db.Column(db.String, nullable=False)
+    length = db.Column(db.Integer, nullable=False)
     start = db.Column(db.DateTime, nullable=False)
     resort = db.Column(db.String, nullable=False)
-    perPerson = db.Column(db.Numeric, nullable=False)
+    perPerson = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
     image = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     
