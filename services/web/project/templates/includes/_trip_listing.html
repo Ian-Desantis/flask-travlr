@@ -5,7 +5,7 @@
 
     {% if trips %}
 
-        {% if rev == True %}
+        {% if reverse_order == True %}
 
             {% for trip in trips | sort(attribute=sort_by) | reverse %}
                 <div>
