@@ -11,12 +11,6 @@ def create_app():
     # set up app configs
     app = Flask(__name__)
     app.config.from_object('project.config.Config')
-
-
-    @app.template_filter('date_format')
-    def date_format(start_date):
-            return start_date.strftime('%m-%d-%Y')
-    
         
     # register Blueprints of other modules
     from .routes import web
@@ -33,7 +27,7 @@ def create_app():
     def internal_server_error(e):
         return render_template('500.html'), 500
 
-    db.init_app(app) # as it says init DB
+    db.init_app(app) # sets db to app 
 
     with app.app_context():
         return app

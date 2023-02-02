@@ -1,11 +1,12 @@
-# endpoints for the backend "admin" side of the website
-from flask import Blueprint, render_template, request, redirect, url_for, session
-import json
+# File for the endpoints for the backend "admin" side of the website
 
+# library imports
+from flask import Blueprint, render_template, request, redirect, url_for, session
+
+# package imports
 from .db_helpers import get_trips, get_trip, search_trips
 from .models import db, Trip
-from .forms import AddTripForm, EditTripForm, DeleteTripForm, SearchTripForm
-
+from .forms import AddTripForm, EditTripForm, DeleteTripForm
 
 
 # admin BP, Register with app in factory
@@ -18,16 +19,17 @@ def trip_list():
     if request.method == 'GET':
 
         trips = get_trips()
-        sort_by = 'id'
-        rev = False
         
+        sort_by = 'id'
+        reverse_order = False
+        
+        # sets up session session / resets params
         session['search_results'] = trips
         session['sort_by'] = sort_by
-        session['rev_order'] = rev
+        session['reverse_order'] = reverse_order
         session['search_input'] = ''
 
-
-        return render_template("trips.html", trips=trips, sort_by=sort_by, rev=rev)
+        return render_template("trips.html", trips=trips, sort_by=sort_by, reverse_order=reverse_order)
 
 # gets trip by ID
 @admin.route("/trips/<int:id>")
@@ -35,6 +37,7 @@ def trip_details(id):
     trip = db.get_or_404(Trip, id)
     return render_template("trips/details.html", trip=trip)
 
+# add trip routes
 @admin.route("/trips/add", methods=["GET", "POST"])
 def add_trip():
     form = AddTripForm(request.form)
@@ -49,8 +52,10 @@ def add_trip():
             description=request.form["description"],
         )
         db.session.add(trip)
-        db.session.commit()
+        db.session.commit() # insert to db
+
         return redirect(url_for("admin.trip_details", id=trip.id))
+    # IF GET request
     return render_template("trips/add.html", form=form)
 
 # Edit trip by id
@@ -71,6 +76,7 @@ def edit_trip(id):
         db.session.commit()
         return redirect(url_for("admin.trip_details", id=trip.id))
 
+    # IF GET Request
     return render_template("trips/edit.html", form=form, trip=trip)
 
 # Deletes Trip By Id
@@ -87,10 +93,9 @@ def delete_trip(id):
             db.session.delete(trip)
             db.session.commit()
             return redirect(url_for("admin.trip_list"))
-
+        # reconfirm (bad input)
         return render_template("trips/delete.html", form=form, trip=trip)
-
-
+    # if GET request
     return render_template("trips/delete.html", form=form, trip=trip)
 
 
@@ -98,31 +103,41 @@ def delete_trip(id):
 @admin.route("/trips/search", methods=['POST'])
 def better_search():
 
+    # gets users input and performs search
     input = request.form["search"]
     trips = search_trips(input)
 
-    session['rev_order'] = False
+    # reset search params
+    # session['reverse_order'] = False
+
+    # sets ssearch results and input into session for use later
     session['search_input'] = input
     session['search_results'] = trips
 
-    return render_template("trips.html", trips=trips, input=input, rev=session['rev_order'], sort_by=session['sort_by'])
 
+    return render_template("trips.html", trips=trips, input=input, 
+                            reverse_order=session['reverse_order'], sort_by=session['sort_by'])
 
+# sorts the search results by field selected "sort_by"
 @admin.route("/trips/search/<string:sort_by>", methods=['GET'])
 def sort_search(sort_by):
-    session['rev_order'] = False
 
+    # resets sort order
+    session['reverse_order'] = False
+    # set sort by
     session['sort_by'] = sort_by
 
+    return render_template('trips.html', trips=session['search_results'], 
+                            sort_by=sort_by, input=session['search_input'], reverse_order=session['reverse_order'])
 
-    return render_template('trips.html', trips=session['search_results'], sort_by=sort_by, input=session['search_input'], rev=session['rev_order'])
-
-
+# Reverses the order of the search results
 @admin.route("/trips/rev", methods=['GET'])
 def rev_search():
 
-    rev = False if session['rev_order'] == True else True
-    session['rev_order'] = rev
+    # sets session variable for ordering
+    reverse_order = False if session['reverse_order'] == True else True
+    session['reverse_order'] = reverse_order
 
-    return render_template('trips.html', trips=session['search_results'], sort_by=session['sort_by'], rev=rev, input=session['search_input'] )
+    return render_template('trips.html', trips=session['search_results'], 
+                            sort_by=session['sort_by'], reverse_order=reverse_order, input=session['search_input'] )
 

@@ -1,4 +1,5 @@
 # These are Forms from the front end
+# help render and validate form input
 # Add any new forms needed here and import them individually later
 
 from wtforms import StringField, validators, SubmitField, DecimalField, IntegerField
@@ -28,7 +29,3 @@ class EditTripForm(FlaskForm):
 class DeleteTripForm(FlaskForm):
     name = StringField('Trip Name', [validators.Length(min=3, max=25)])
     submit = SubmitField('Delete Trip')
-
-class SearchTripForm(FlaskForm):
-    search_input = StringField('Search Trip ID', [validators.Length(min=3, max=25)])
-    submit = SubmitField('Search Trip')

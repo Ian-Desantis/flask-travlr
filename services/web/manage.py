@@ -15,6 +15,7 @@ def create_db():
     db.create_all()
     db.session.commit()
 
+# Optional Load test data into the DB command (looks for test_data.py)
 @cli.command("load_db")
 def load_db():
     from project.shared_db import db

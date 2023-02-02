@@ -3,7 +3,7 @@ from .models import Trip
 from json import dumps
 from dataclasses import dataclass
 
-
+# serializable version of the db model
 @dataclass
 class NewTrip():
     id: int
@@ -15,18 +15,26 @@ class NewTrip():
     image: str
     description: str
 
+# converts db model to dataclass. formats some data
 def convert_trip(trip):
-    new_trip = NewTrip(trip.id, trip.name, trip.length,
-    trip.start.strftime('%Y-%m-%d'), trip.resort, float(trip.perPerson),
-    trip.image, trip.description)
+    new_trip = NewTrip(trip.id, 
+                    trip.name, 
+                    trip.length,
+                    trip.start.strftime('%Y-%m-%d'), 
+                    trip.resort, 
+                    float(trip.perPerson),
+                    trip.image, 
+                    trip.description)
     return new_trip
 
+# turns query result into json(ish) format
+# can work with the data better like this without repeated queries to the db
 def convert_trips(trips):
     new_trips = [convert_trip(trip) for trip in trips]
     return new_trips
 
 
-# Helper functions
+# Helper functions for the db queries
 def get_trips(sort='name'):
     try:
         # gets all trips
@@ -38,8 +46,6 @@ def get_trips(sort='name'):
         return trips 
     except:
         return None  
-        
-    
 
 # gets one trip, by id
 def get_trip(id):
@@ -52,20 +58,7 @@ def get_trip(id):
     except:
         return  None
 
-def search_trips_by_name(trip_name, sort="name"):
-    try:
-        trips = db.session.execute(
-            db.select(Trip)
-            .filter(
-                Trip.name.ilike(f'%{trip_name}%'))
-                .order_by(getattr(Trip,sort))
-                ).scalars()
-
-        return convert_trips(trips)
-    except Exception as e: 
-        print(e)
-
-
+# better search algo, looks in all text fields
 def search_trips(search_input, sort="name"):
     try:
         trips = db.session.execute(

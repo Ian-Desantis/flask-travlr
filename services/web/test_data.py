@@ -1,3 +1,5 @@
+# here is some test data you can load
+
 data = [
     {
         "name": "Trip 1",
@@ -24,7 +26,7 @@ data = [
         "resort": "Ian's Resort",
         "perPerson": 9599.99,
         "image": "reef3.jpg",
-        "description": "<p> Here's a new Resort!!! </p>"
+        "description": "<p> Here's a new Resort!!! Name After Id </p>"
     },              
 {
         "name": "Trip 3",
@@ -33,7 +35,7 @@ data = [
         "resort": "Ian's Resort",
         "perPerson": 599.99,
         "image": "reef1.jpg",
-        "description": "<p> Here's a Newer Resort!!! </p>"
+        "description": "<p> Here's a Newer Resort!!! Name Before Id</p>"
     },             
 {
         "name": "Trip 5",
@@ -61,5 +63,32 @@ data = [
         "perPerson": 100,
         "image": "reef2.jpg",
         "description": "<p> Here's I edited this Resort!!! </p>"
-    }
+    },
+{
+        "name": "Cheaper Trip",
+        "length": 6,
+        "start": "2020-12-12T00:00:00",
+        "resort": "The last Resort",
+        "perPerson": 99.00,
+        "image": "reef1.jpg",
+        "description": "<p> Here's a cheaper Resort!!! </p>"
+    },
+    {
+        "name": "Cheapest Trip",
+        "length": 6,
+        "start": "2020-12-14T00:00:00",
+        "resort": "The Cheapest Resort",
+        "perPerson": 1.00,
+        "image": "reef2.jpg",
+        "description": "<p> Here's the cheapest  Resort!!! </p>"
+    },
+{
+        "name": "Future Trip",
+        "length": 2,
+        "start": "2024-12-14T00:00:00",
+        "resort": "The Cheapest Resort",
+        "perPerson": 1.00,
+        "image": "reef2.jpg",
+        "description": "<p> Here's the Trip in the future!!! </p>"
+    },
 ]

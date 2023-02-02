@@ -8,7 +8,7 @@ from .trip_routes import get_trips
 # to be registerd with the app in the factory 
 web = Blueprint("web", __name__)
 
-# Put routes here
+# Put routes here, Use obvious names
 @web.route("/")
 @web.route("/home")
 @web.route("/index") 
@@ -37,5 +37,5 @@ def rooms():
 
 @web.route("/travel") 
 def travel():
-    trips = get_trips()
+    trips = get_trips() # populates front end from db
     return render_template("travel.html", trips=trips)
