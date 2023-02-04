@@ -61,7 +61,10 @@ def add_trip():
 # Edit trip by id
 @admin.route("/trips/edit/<int:id>", methods=["GET", "POST"])
 def edit_trip(id):
+    print('Entered edit Trip')
+    print("getting Trip " + str(id))
     trip = get_trip(id)
+    print(trip)
     form = EditTripForm(request.form)
     # sets new values
     if request.method == 'POST':

@@ -1,6 +1,5 @@
 from .shared_db import db
 from .models import Trip
-from json import dumps
 from dataclasses import dataclass
 
 # serializable version of the db model
@@ -54,7 +53,7 @@ def get_trip(id):
             db.select(Trip)
             .filter_by(id=id)
             ).scalar_one()
-        return convert_trips(results)
+        return convert_trip(results)
     except:
         return  None
 
