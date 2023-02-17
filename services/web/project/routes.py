@@ -2,7 +2,7 @@
 # for the client side of the website are
 
 from flask import Blueprint, render_template
-from .trip_routes import get_trips
+from .admin.trips.trip_routes import get_trips
 
 # web blueprint of routes 
 # to be registerd with the app in the factory 
@@ -15,7 +15,7 @@ web = Blueprint("web", __name__)
 def index():
     return render_template("index.html")
 
-@web.route("/about") 
+@web.route("/about")
 def about():
     return render_template("about.html")
 

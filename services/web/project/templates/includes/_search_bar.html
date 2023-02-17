@@ -3,7 +3,7 @@
         <a class="navbar-brand">Search Results</a>
 
         <li class="nav-item">
-            <a href="{{ url_for('admin.rev_search') }}" class="btn btn-outline-primary my-2 my-sm-0 active" role="button" aria-pressed="true">
+            <a href="{{ url_for('trips_bp.rev_search') }}" class="btn btn-outline-primary my-2 my-sm-0 active" role="button" aria-pressed="true">
                 <i class="bi bi-arrow-down-up"></i>
             </a>          
         </li>
@@ -13,16 +13,16 @@
             Sort By
           </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{ url_for('admin.sort_search', sort_by='perPerson') }}">Price</a>
-                <a class="dropdown-item" href="{{ url_for('admin.sort_search', sort_by='length') }}">Length</a>
-                <a class="dropdown-item" href="{{ url_for('admin.sort_search', sort_by='name') }}">Trip Name</a>
-                <a class="dropdown-item" href="{{ url_for('admin.sort_search', sort_by='resort') }}">Resort</a>
-                <a class="dropdown-item" href="{{ url_for('admin.sort_search', sort_by='start') }}">Start Date</a>
-                <a class="dropdown-item" href="{{ url_for('admin.sort_search', sort_by='id') }}">ID #</a>
+                <a class="dropdown-item" href="{{ url_for('trips_bp.sort_search', sort_by='perPerson') }}">Price</a>
+                <a class="dropdown-item" href="{{ url_for('trips_bp.sort_search', sort_by='length') }}">Length</a>
+                <a class="dropdown-item" href="{{ url_for('trips_bp.sort_search', sort_by='name') }}">Trip Name</a>
+                <a class="dropdown-item" href="{{ url_for('trips_bp.sort_search', sort_by='resort') }}">Resort</a>
+                <a class="dropdown-item" href="{{ url_for('trips_bp.sort_search', sort_by='start') }}">Start Date</a>
+                <a class="dropdown-item" href="{{ url_for('trips_bp.sort_search', sort_by='id') }}">ID #</a>
             </div>
         </li>
         
-    <form class="form-inline my-2 my-lg-0" method="POST" action="{{ url_for('admin.better_search') }}">
+    <form class="form-inline my-2 my-lg-0" method="POST" action="{{ url_for('trips_bp.better_search') }}">
     {% if input %}
         <input class="form-control mr-sm-2" name="search" id="search" type="text"  value="{{ input }}" aria-label="Search">
     {% else %}

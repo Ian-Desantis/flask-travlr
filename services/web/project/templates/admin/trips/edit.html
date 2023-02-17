@@ -1,4 +1,4 @@
-{% extends 'includes/_trips_base.html' %}
+{% extends 'includes/_admin_base.html' %}
 {% from 'includes/_render_field.html' import render_field %}
 
 {% block content %}
@@ -6,7 +6,7 @@
     <h2 class="text-center">Edit Trip</h2>
     <div class="container">
         <div>
-            <form class="needs-validation" method="post" action="{{ url_for('admin.edit_trip', id=trip.id)}}">
+            <form class="needs-validation" method="post" action="{{ url_for('trips_bp.edit_trip', id=trip.id)}}">
                 {{ render_field(form.name, class='form-control', type='text', value=trip.name) }}
                 {{ render_field(form.length, class='form-control', type='text', value=trip.length) }}
                 {{ render_field(form.start, class='form-control', type='text', value=trip.start) }}

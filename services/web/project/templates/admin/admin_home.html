@@ -1,0 +1,14 @@
+{% extends 'includes/_admin_base.html' %}
+
+{% block content %}
+
+<h1 class="title">
+    Welcome to the travlr Admin Page!
+</h1>
+{% if not current_user.is_authenticated %}
+    <h2>
+        Please login to continue. 
+    </h2>
+{% endif %}
+
+{% endblock %}

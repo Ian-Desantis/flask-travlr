@@ -1,23 +1,41 @@
  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ url_for('admin.trip_list') }}"><img src="{{ url_for('static', filename='/images/logo.png') }}"></a>
+    <a class="navbar-brand" href="{{ url_for('admin_bp.home') }}"><img src="{{ url_for('static', filename='/images/logo.png') }}"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="{{ url_for('admin.trip_list') }}">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('admin.add_trip') }}">Add Trip</a>
-        </li>
-        {# if logged in do this }
-        <li class="nav-item">
-          <a class="nav-link disabled" href="{{ url_for('admin.trip_list') }}">Disabled</a>
-        </li>
-        { #}
-      </ul>
+      
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('trips_bp.trip_list') }}">Trips<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('trips_bp.add_trip') }}">Add Trip</a>
+            </li>
+          {% if not current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link mr-sm-2" href="{{ url_for('auth_bp.login') }}">Login</a>
+            </li>
 
-    </div>
+            <li class="nav-item">
+              <a class="nav-link mr-sm-2" href="{{ url_for('auth_bp.signup') }}">Sign Up</a>
+            </li>
+          {% endif %}
+          {% if current_user.is_authenticated %}
+
+    
+            <li class="nav-item">
+                <a class="nav-link mr-sm-2" href="{{ url_for('auth_bp.logout') }}">Log Out</a>
+            </li>
+            <li class="nav-item">
+                  <a class="nav-link mr-sm-2" href="{{ url_for('users_bp.profile') }}">Profile</a>
+            </li>
+            
+          {% endif %}
+    
+          </ul>
+        
+  </div>
+
+
   </nav>

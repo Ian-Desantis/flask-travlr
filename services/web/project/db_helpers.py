@@ -57,6 +57,17 @@ def get_trip(id):
     except:
         return  None
 
+# gets one trip, by id
+def get_trip_as_trip(id):
+    try:
+        results = db.session.execute(
+            db.select(Trip)
+            .filter_by(id=id)
+            ).scalar_one()
+        return results
+    except:
+        return  None
+
 # better search algo, looks in all text fields
 def search_trips(search_input, sort="name"):
     try:

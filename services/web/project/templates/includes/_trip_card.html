@@ -18,8 +18,8 @@
         <p class="card-text">{{ trip.description | safe }}</p> 
     </div>
     <div>
-        <a href="{{ url_for('admin.edit_trip', id=trip.id)}}" class="btn btn-info">Edit</a>
-        <a href="{{ url_for('admin.delete_trip', id=trip.id)}}" class="btn btn-info">Delete</a>
+        <a href="{{ url_for('trips_bp.edit_trip', id=trip.id)}}" class="btn btn-info">Edit</a>
+        <a href="{{ url_for('trips_bp.delete_trip', id=trip.id)}}" class="btn btn-info">Delete</a>
     </div>
 </div>
 {% endmacro %}

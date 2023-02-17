@@ -1,0 +1,26 @@
+{% extends 'includes/_admin_base.html' %}
+{% from 'includes/_render_field.html' import render_field %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% if messages[0][0] == 'error' %}
+            <div class="alert alert-danger">{{ messages[0][1] }}</div>
+        {% else %}
+            <div class="alert alert-info">{{ messages[0][1] }}</div>
+        {% endif %}
+    {% endif %}
+{% endwith %}
+
+<form class="form" method="post" action="{{ url_for('auth_bp.signup') }}">
+    <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+
+    {{ render_field(form.email, class='form-control', type='email', placeholder='Email') }}
+    {{ render_field(form.name, class='form-control', type='text', placeholder='Name') }}
+    {{ render_field(form.password, class='form-control', type='password', placeholder='Password') }}
+    {{ render_field(form.confirm_pass, class='form-control', type='password', placeholder='Confirm Password') }}
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+</form>
+     
+{% endblock %}

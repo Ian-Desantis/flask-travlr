@@ -11,7 +11,7 @@
 						{% for trip in trips %}
 						<li>
 							{% set img = "images/" ~ trip.image %}
-							<a href="{{ url_for('admin.trip_details', id = trip.id) }}"><img src="{{url_for('static', filename=img)}}" alt="Img"></a>
+							<a href="{{ url_for('trips_bp.trip_details', id = trip.id) }}"><img src="{{url_for('static', filename=img)}}" alt="Img"></a>
 							<h2><a href="{{url_for('web.travel')}}">{{trip.name}}</a></h2>
 							{{ trip.description |striptags}}
 						</li>
