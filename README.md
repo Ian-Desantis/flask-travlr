@@ -24,7 +24,7 @@ start website:
 localhost:5000
 
 admin side:
-localhost:5000/trips
+localhost:5000/admin
 
 add trips to see trips
 

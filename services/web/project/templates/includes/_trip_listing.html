@@ -5,27 +5,16 @@
 
     {% if trips %}
 
-        {% if reverse_order == True %}
 
-            {% for trip in trips | sort(attribute=sort_by) | reverse %}
-                <div>
-                    <div class="card-deck mt-2">
-                        {{ render_trip_card(trip) }}
-                    </div>
+        {% for trip in trips | sort(attribute=sort_by, reverse=reverse_order) | reverse %}
+            <div>
+                <div class="card-deck mt-2">
+                    {{ render_trip_card(trip) }}
                 </div>
-            {% endfor %}
+            </div>
+        {% endfor %}
 
-        {% else %}
-
-            {% for trip in trips | sort(attribute=sort_by)  %}
-                <div>
-                    <div class="card-deck mt-2">
-                        {{ render_trip_card(trip) }}
-                    </div>
-                </div>
-            {% endfor %}
-            
-        {% endif %}
+        
 
     {% elif trip %}
         <div>
