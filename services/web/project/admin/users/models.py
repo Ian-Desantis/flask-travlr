@@ -1,7 +1,13 @@
+"""
+users/models.py
+
+User model for Flask Login
+"""
 from flask_login import UserMixin
 
 from ...shared_db import db
 
+# represents a user of the website
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)

@@ -1,5 +1,8 @@
-# File for the endpoints for the backend "admin" side of the website
+"""
+trips/trip_routes.py
 
+File for the endpoints for the backend "admin" side of the website
+"""
 # library imports
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from flask_login import login_required

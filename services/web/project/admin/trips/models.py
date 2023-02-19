@@ -1,3 +1,9 @@
+""""
+trips/models.py
+
+Trip models
+"""
+
 from ...shared_db import db
 
 class Trip(db.Model):

@@ -1,18 +1,24 @@
+""""
+Auth.py
+
+This contains all of the routes for authenticating a user.
+"""
+
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, login_required, logout_user
 
 from ...shared_db import db
 from ..users.models import User
-from ..users.forms import AddUser
-from .forms import LoginForm
+from .forms import LoginForm, AddUser
 
 auth_bp = Blueprint('auth_bp', __name__)
 
-
+# signs up a user
 @auth_bp.route('/signup', methods=['GET','POST'])
 def signup():
     form = AddUser(request.form)
+    # gets form data
     if request.method == 'POST':
         name = request.form.get('name')
         email = request.form.get('email')
@@ -32,7 +38,7 @@ def signup():
     # flash('Please Check Required Fields', category='error')
     return render_template('admin/auth/signup.html', form=form)
     
-
+# login a user
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm(request.form)
@@ -55,7 +61,7 @@ def login():
     
     return render_template('admin/auth/login.html', form=form)
 
-
+# logout a user
 @auth_bp.route('/logout')
 @login_required
 def logout():
